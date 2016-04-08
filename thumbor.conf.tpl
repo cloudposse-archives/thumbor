@@ -147,7 +147,7 @@ AWS_SECRET_KEY = '{{ AWS_SECRET_ACCESS_KEY | default('') }}'
 
 ## The root path where the File Loader will try to find images
 ## Defaults to: /tmp
-FILE_LOADER_ROOT_PATH = '{{ FILE_LOADER_ROOT_PATH | default('/data/loader') }}'
+FILE_LOADER_ROOT_PATH = '{{ FILE_LOADER_ROOT_PATH | default('/app/data/loader') }}'
 
 ################################################################################
 
@@ -214,7 +214,7 @@ STORES_CRYPTO_KEY_FOR_EACH_IMAGE = {{ STORES_CRYPTO_KEY_FOR_EACH_IMAGE | default
 
 ## The root path where the File Storage will try to find images
 ## Defaults to: /tmp/thumbor/storage
-FILE_STORAGE_ROOT_PATH = '{{ FILE_STORAGE_ROOT_PATH | default('/data/storage') }}'
+FILE_STORAGE_ROOT_PATH = '{{ FILE_STORAGE_ROOT_PATH | default('/app/data/storage') }}'
 
 ################################################################################
 
@@ -391,7 +391,7 @@ RESULT_STORAGE_EXPIRATION_SECONDS = {{ RESULT_STORAGE_EXPIRATION_SECONDS | defau
 
 ## Path where the Result storage will store generated images
 ## Defaults to: /tmp/thumbor/result_storage
-RESULT_STORAGE_FILE_STORAGE_ROOT_PATH = '{{ RESULT_STORAGE_FILE_STORAGE_ROOT_PATH | default('/data/result_storage') }}'
+RESULT_STORAGE_FILE_STORAGE_ROOT_PATH = '{{ RESULT_STORAGE_FILE_STORAGE_ROOT_PATH | default('/app/data/result_storage') }}'
 
 ## Indicates whether unsafe requests should also be stored in the Result Storage
 ## Defaults to: False

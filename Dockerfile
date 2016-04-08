@@ -1,12 +1,12 @@
 FROM python:2
 
-VOLUME /logs
-VOLUME /data
+VOLUME /app/logs
+VOLUME /app/data
 
 ENV HOME /app
 ENV SHELL bash
 ENV WORKON_HOME /app
-WORKDIR /app
+WORKDIR /
 ADD *.txt /tmp/
 
 RUN apt-get update && \
@@ -20,7 +20,7 @@ RUN apt-get update && \
     ln /usr/lib/python2.7/dist-packages/cv.py /usr/local/lib/python2.7/cv.py
 
 ADD start /start
-ADD conf /app/conf
+ADD /thumbor.conf.tpl
 
 ENTRYPOINT ["/start"]
 CMD ["thumbor"]

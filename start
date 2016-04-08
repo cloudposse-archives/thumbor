@@ -1,6 +1,6 @@
 #!/bin/sh
 
-envtpl /app/conf/thumbor.conf.tpl  --allow-missing --keep-template
+envtpl /thumbor.conf.tpl  --allow-missing --keep-template
 
 # If log level is defined we configure it, else use default log_level = info
 if [ -n "$LOG_LEVEL" ]; then
@@ -13,7 +13,7 @@ if [ -z ${THUMBOR_PORT+x} ]; then
 fi
 
 if [ "$1" = 'thumbor' ]; then
-    exec thumbor --port=$THUMBOR_PORT --conf=/app/conf/thumbor.conf $LOG_PARAMETER
+    exec thumbor --port=$THUMBOR_PORT --conf=/thumbor.conf $LOG_PARAMETER
 fi
 
 exec "$@"
