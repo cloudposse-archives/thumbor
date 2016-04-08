@@ -98,7 +98,8 @@ ALLOW_ANIMATED_GIFS = {{ ALLOW_ANIMATED_GIFS | default(True) }}
 ## cropping and filters are not supported for gifs using gifsicle (but won't
 ## give an error).
 ## Defaults to: False
-USE_GIFSICLE_ENGINE = {{ USE_GIFSICLE_ENGINE | default(False) }}
+#USE_GIFSICLE_ENGINE = {{ USE_GIFSICLE_ENGINE | default(False) }}
+USE_GIFSICLE_ENGINE = {{ USE_GIFSICLE_ENGINE | default(True) }}
 
 ## Indicates whether thumbor should enable blacklist functionality to prevent
 ## processing certain images.
