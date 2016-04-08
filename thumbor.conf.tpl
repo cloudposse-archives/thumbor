@@ -1,3 +1,16 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from os.path import expanduser, join
+home = expanduser("~")       
+
+# thumbor imaging service
+# https://github.com/thumbor/thumbor/wiki
+
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license
+# Copyright (c) 2011 globo.com timehome@corp.globo.com
+
 ################################### Logging ####################################
 
 ## Log Format to be used by thumbor when writing log messages.
@@ -36,8 +49,8 @@ ALLOWED_SOURCES =  {{ ALLOWED_SOURCES | default([]) }}
 
 
 ## Quality index used for generated JPEG images
-## Defaults to: 80
-QUALITY = {{ QUALITY | default(80) }}
+## Defaults to: 85
+QUALITY = {{ QUALITY | default(85) }}
 
 ## Quality index used for generated WebP images. If not set (None) the same level
 ## of JPEG quality will be used.
@@ -57,6 +70,9 @@ MAX_AGE = {{ MAX_AGE | default(86400) }}
 ## failed smart detection)
 ## Defaults to: 0
 MAX_AGE_TEMP_IMAGE = {{ MAX_AGE_TEMP_IMAGE | default(0) }}
+
+## Sends If-Modified-Since & Last-Modified headers; requires support from result storage
+SEND_IF_MODIFIED_LAST_MODIFIED_HEADERS = {{ SEND_IF_MODIFIED_LAST_MODIFIED_HEADERS | default(False) }}
 
 ## Indicates whether thumbor should rotate images that have an Orientation EXIF
 ## header
@@ -119,6 +135,13 @@ RESULT_STORAGE = '{{ RESULT_STORAGE | default('thumbor.result_storages.file_stor
 ## Defaults to: thumbor.engines.pil
 ENGINE = '{{ ENGINE | default('thumbor.engines.pil') }}'
 
+## The graphics engine (and any optimizers) will block the IOLoop.  If you want
+## to increase the number of concurrent requests Thumbor can handle, increase
+## ENGINE_THREADPOOLSIZE to use a thread pool.  Benchmarks indicate 1xnumber of
+## cpus - 2x number of cpus gives the best results, but do some benchmarks with
+## your workload.
+ENGINE_THREADPOOL_SIZE = {{ ENGINE_THREADPOOL_SIZE | default(4) }}
+
 ################################################################################
 
 
@@ -152,6 +175,8 @@ FILE_LOADER_ROOT_PATH = '{{ FILE_LOADER_ROOT_PATH | default('/app/data/loader') 
 ################################################################################
 
 
+MAX_SOURCE_SIZE = {{ MAX_SOURCE_SIZE | default(0) }}
+
 ################################# HTTP Loader ##################################
 
 ## The maximum number of seconds libcurl can take to connect to an image being
@@ -178,7 +203,7 @@ HTTP_LOADER_FORWARD_USER_AGENT = {{ HTTP_LOADER_FORWARD_USER_AGENT | default(Fal
 
 ## Default user agent for thumbor http loader requests
 ## Defaults to: Thumbor/5.0.3
-HTTP_LOADER_DEFAULT_USER_AGENT = '{{ HTTP_LOADER_DEFAULT_USER_AGENT | default('Thumbor/5.0.3') }}'
+HTTP_LOADER_DEFAULT_USER_AGENT = '{{ HTTP_LOADER_DEFAULT_USER_AGENT | default('Thumbor/6.0.1') }}'
 
 ## The proxy host needed to load images through
 ## Defaults to: None
@@ -210,7 +235,7 @@ STORAGE_EXPIRATION_SECONDS = {{ STORAGE_EXPIRATION_SECONDS | default(2592000) }}
 ## file storage. This allows the key to be changed and old images to still be
 ## properly found
 ## Defaults to: False
-STORES_CRYPTO_KEY_FOR_EACH_IMAGE = {{ STORES_CRYPTO_KEY_FOR_EACH_IMAGE | default(False) }}
+STORES_CRYPTO_KEY_FOR_EACH_IMAGE = {{ STORES_CRYPTO_KEY_FOR_EACH_IMAGE | default(True) }}
 
 ## The root path where the File Storage will try to find images
 ## Defaults to: /tmp/thumbor/storage
@@ -361,7 +386,8 @@ FACE_DETECTOR_CASCADE_FILE = '{{ FACE_DETECTOR_CASCADE_FILE | default('haarcasca
 
 ## List of optimizers that thumbor will use to optimize images
 ## Defaults to: [] --> ['thumbor.optimizers.jpegtran',]
-OPTIMIZERS = {{ OPTIMIZERS | default([]) }}
+OPTIMIZERS = {{ OPTIMIZERS | default(['thumbor.optimizers.gifv', 'thumbor.optimizers.jpegtran']) }}
+#OPTIMIZERS = {{ OPTIMIZERS | default([]) }}
 
 
 ## Path for the jpegtran binary
@@ -378,7 +404,7 @@ PROGRESSIVE_JPEG = {{ PROGRESSIVE_JPEG | default(True) }}
 ## them must be full names of python modules (python must be able to import
 ## it)
 ## Defaults to: ['thumbor.filters.brightness', 'thumbor.filters.contrast', 'thumbor.filters.rgb', 'thumbor.filters.round_corner', 'thumbor.filters.quality', 'thumbor.filters.noise', 'thumbor.filters.watermark', 'thumbor.filters.equalize', 'thumbor.filters.fill', 'thumbor.filters.sharpen', 'thumbor.filters.strip_icc', 'thumbor.filters.frame', 'thumbor.filters.grayscale', 'thumbor.filters.rotate', 'thumbor.filters.format', 'thumbor.filters.max_bytes', 'thumbor.filters.convolution', 'thumbor.filters.blur', 'thumbor.filters.extract_focal', 'thumbor.filters.no_upscale']
-FILTERS = {{ FILTERS | default(['thumbor.filters.brightness', 'thumbor.filters.contrast', 'thumbor.filters.rgb', 'thumbor.filters.round_corner', 'thumbor.filters.quality', 'thumbor.filters.noise', 'thumbor.filters.watermark', 'thumbor.filters.equalize', 'thumbor.filters.fill', 'thumbor.filters.sharpen', 'thumbor.filters.strip_icc', 'thumbor.filters.frame', 'thumbor.filters.grayscale', 'thumbor.filters.rotate', 'thumbor.filters.format', 'thumbor.filters.max_bytes', 'thumbor.filters.convolution', 'thumbor.filters.blur', 'thumbor.filters.extract_focal', 'thumbor.filters.no_upscale']) }}
+FILTERS = {{ FILTERS | default(['thumbor.filters.brightness', 'thumbor.filters.colorize', 'thumbor.filters.contrast', 'thumbor.filters.rgb', 'thumbor.filters.round_corner', 'thumbor.filters.quality', 'thumbor.filters.noise', 'thumbor.filters.watermark', 'thumbor.filters.equalize', 'thumbor.filters.fill', 'thumbor.filters.saturation', 'thumbor.filters.sharpen', 'thumbor.filters.strip_icc', 'thumbor.filters.frame', 'thumbor.filters.grayscale', 'thumbor.filters.rotate', 'thumbor.filters.format', 'thumbor.filters.max_bytes', 'thumbor.filters.blur', 'thumbor.filters.no_upscale']) }}
 
 ################################################################################
 
