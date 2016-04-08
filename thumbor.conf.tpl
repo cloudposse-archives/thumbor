@@ -395,7 +395,7 @@ RESULT_STORAGE_FILE_STORAGE_ROOT_PATH = '{{ RESULT_STORAGE_FILE_STORAGE_ROOT_PAT
 
 ## Indicates whether unsafe requests should also be stored in the Result Storage
 ## Defaults to: False
-RESULT_STORAGE_STORES_UNSAFE = {{ RESULT_STORAGE_STORES_UNSAFE | default(False) }}
+RESULT_STORAGE_STORES_UNSAFE = {{ RESULT_STORAGE_STORES_UNSAFE | default(True) }}
 
 ################################################################################
 
