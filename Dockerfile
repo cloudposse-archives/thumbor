@@ -20,7 +20,7 @@ RUN apt-get update && \
     ln /usr/lib/python2.7/dist-packages/cv.py /usr/local/lib/python2.7/cv.py
 
 ADD start /start
-ADD /thumbor.conf.tpl
+ADD /thumbor.conf.tpl /
 
 ENTRYPOINT ["/start"]
 CMD ["thumbor"]
