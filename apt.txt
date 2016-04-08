@@ -11,3 +11,4 @@ libpng12-dev
 libtiff5-dev
 libjasper-dev
 libjpeg-turbo-progs
+gifsicle
