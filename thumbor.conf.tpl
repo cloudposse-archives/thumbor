@@ -220,7 +220,7 @@ HTTP_LOADER_PROXY_USERNAME = {{ HTTP_LOADER_PROXY_USERNAME | default(None) }}
 
 ## The proxy password for the proxy host
 ## Defaults to: None
-HTTP_LOADER_PROXY_PASSWORD = {{ HTTP_LOADER_PROXY_PASSWORD | default(None) }}
+HTTP_LOADER_PROXY_PASSWORD = '{{ HTTP_LOADER_PROXY_PASSWORD | default('') }}'
 
 ################################################################################
 
@@ -316,7 +316,7 @@ REDIS_STORAGE_SERVER_DB = {{ REDIS_STORAGE_SERVER_DB | default(0) }}
 
 ## Redis storage server password
 ## Defaults to: None
-REDIS_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
+REDIS_STORAGE_SERVER_PASSWORD = '{{ REDIS_STORAGE_SERVER_PASSWORD | default('') }}'
 
 ################################################################################
 
@@ -443,7 +443,7 @@ REDIS_QUEUE_SERVER_DB = {{ REDIS_QUEUE_SERVER_DB | default(0) }}
 
 ## Server password for the queued redis detector
 ## Defaults to: None
-REDIS_QUEUE_SERVER_PASSWORD = {{ REDIS_QUEUE_SERVER_PASSWORD | default(None) }}
+REDIS_QUEUE_SERVER_PASSWORD = '{{ REDIS_QUEUE_SERVER_PASSWORD | default('') }}'
 
 ################################################################################
 
